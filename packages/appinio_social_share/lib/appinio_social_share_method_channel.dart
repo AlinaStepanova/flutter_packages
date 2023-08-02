@@ -21,6 +21,7 @@ class MethodChannelAppinioSocialShare extends AppinioSocialSharePlatform {
   final String systemShare = "system_share";
   final String copyToClipboard = "copy_to_clipboard";
   final String telegram = "telegram";
+  final String slack = "slack";
   final String installedApps = "installed_apps";
 
   /// The method channel used to interact with the native platform.
@@ -158,6 +159,13 @@ class MethodChannelAppinioSocialShare extends AppinioSocialSharePlatform {
   Future<String> shareToFacebook(String hashtag, String filePath) async {
     return ((await methodChannel.invokeMethod<String>(
             facebook, {"imagePath": filePath, "message": hashtag})) ??
+        "");
+  }
+
+  @override
+  Future<String> shareToSlack(String message, {String? filePath}) async {
+    return ((await methodChannel.invokeMethod<String>(
+        slack, {"imagePath": filePath, "message": message})) ??
         "");
   }
 }

@@ -52,7 +52,7 @@ public class SocialShareUtil {
     private final String FACEBOOK_MESSENGER_PACKAGE = "com.facebook.orca";
     private final String FACEBOOK_MESSENGER_LITE_PACKAGE = "com.facebook.mlite";
     private final String SMS_DEFAULT_APPLICATION = "sms_default_application";
-
+    private final String SLACK_PACKAGE = "com.Slack";
 
     private static CallbackManager callbackManager;
 
@@ -82,6 +82,9 @@ public class SocialShareUtil {
         return shareFileAndTextToPackage(imagePath, text, activity, TELEGRAM_PACKAGE);
     }
 
+    public String shareToSlack(String imagePath, Context activity, String text) {
+        return shareFileAndTextToPackage(imagePath, text, activity, SLACK_PACKAGE);
+    }
 
     public String shareToMessenger(String text, Context activity) {
         Map<String, Boolean> apps = getInstalledApps(activity);
@@ -315,6 +318,7 @@ public class SocialShareUtil {
         appsMap.put("instagram_stories", INSTAGRAM_PACKAGE);
         appsMap.put("twitter", TWITTER_PACKAGE);
         appsMap.put("tiktok", TIKTOK_PACKAGE);
+        appsMap.put("slack", SLACK_PACKAGE);
 
         Map<String, Boolean> apps = new HashMap<String, Boolean>();
 
@@ -325,7 +329,7 @@ public class SocialShareUtil {
         intent.setData(Uri.parse("sms:"));
         List<ResolveInfo> resolvedActivities = pm.queryIntentActivities(intent, 0);
         apps.put("message", !resolvedActivities.isEmpty());
-        String[] appNames = {"instagram", "facebook_stories", "whatsapp", "telegram", "messenger", "facebook","facebook-lite","messenger-lite", "instagram_stories", "twitter", "tiktok"};
+        String[] appNames = {"instagram", "facebook_stories", "whatsapp", "telegram", "messenger", "facebook","facebook-lite","messenger-lite", "instagram_stories", "twitter", "tiktok", "slack"};
 
         for (int i = 0; i < appNames.length; i++) {
             try {

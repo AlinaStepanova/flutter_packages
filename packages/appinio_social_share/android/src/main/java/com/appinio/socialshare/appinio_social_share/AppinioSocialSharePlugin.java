@@ -37,6 +37,7 @@ public class AppinioSocialSharePlugin implements FlutterPlugin, MethodCallHandle
     private final String SYSTEM_SHARE = "system_share";
     private final String COPY_TO_CLIPBOARD = "copy_to_clipboard";
     private final String TELEGRAM = "telegram";
+    private final String SLACK = "slack";
 
 
     private SocialShareUtil socialShareUtil;
@@ -55,13 +56,13 @@ public class AppinioSocialSharePlugin implements FlutterPlugin, MethodCallHandle
 
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-        try{
+        try {
             String response = decideApp(call, result);
             if (response != null) {
                 result.success(response);
             }
-        }catch (Exception e){
-            Log.d("error",e.getLocalizedMessage());
+        } catch (Exception e) {
+            Log.d("error", e.getLocalizedMessage());
             result.success(SocialShareUtil.ERROR);
         }
 
@@ -80,18 +81,18 @@ public class AppinioSocialSharePlugin implements FlutterPlugin, MethodCallHandle
         String backgroundBottomColor = call.argument("backgroundBottomColor");
         switch (call.method) {
             case INSTALLED_APPS:
-                Map<String, Boolean> response =  socialShareUtil.getInstalledApps(activeContext);
+                Map<String, Boolean> response = socialShareUtil.getInstalledApps(activeContext);
                 result.success(response);
                 return null;
             case INSTAGRAM_DIRECT:
-                return socialShareUtil.shareToInstagramDirect(message,activeContext);
+                return socialShareUtil.shareToInstagramDirect(message, activeContext);
             case INSTAGRAM_FEED:
                 return socialShareUtil.shareToInstagramFeed(imagePath, activeContext, message);
             case INSTAGRAM_STORIES:
                 return socialShareUtil.shareToInstagramStory(appId, stickerImage, backgroundImage, backgroundTopColor, backgroundBottomColor, attributionURL, activeContext);
             case FACEBOOK_STORIES:
                 return socialShareUtil.shareToFaceBookStory(appId, stickerImage, backgroundImage, backgroundTopColor, backgroundBottomColor, attributionURL, activeContext);
-             case MESSENGER:
+            case MESSENGER:
                 return socialShareUtil.shareToMessenger(message, activeContext);
             case FACEBOOK:
                 if (activity == null) return SocialShareUtil.ERROR;
@@ -110,7 +111,9 @@ public class AppinioSocialSharePlugin implements FlutterPlugin, MethodCallHandle
             case TIKTOK:
                 return socialShareUtil.shareToTikTok(imagePath, activeContext, message);
             case SMS:
-                return socialShareUtil.shareToSMS(message, activeContext,imagePath);
+                return socialShareUtil.shareToSMS(message, activeContext, imagePath);
+            case SLACK:
+                return socialShareUtil.shareToSlack(message, activeContext, imagePath);
             default:
                 return null;
         }

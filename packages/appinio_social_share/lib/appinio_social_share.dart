@@ -99,4 +99,9 @@ class AppinioSocialShare {
     return AppinioSocialSharePlatform.instance
         .shareToSMS(message, filePath: filePath);
   }
+
+  Future<String> shareToSlack(String message, {String? filePath}) {
+    return AppinioSocialSharePlatform.instance
+        .shareToSlack(message, filePath: filePath);
+  }
 }
