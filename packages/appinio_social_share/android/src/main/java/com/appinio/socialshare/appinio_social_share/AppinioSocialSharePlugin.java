@@ -113,7 +113,7 @@ public class AppinioSocialSharePlugin implements FlutterPlugin, MethodCallHandle
             case SMS:
                 return socialShareUtil.shareToSMS(message, activeContext, imagePath);
             case SLACK:
-                return socialShareUtil.shareToSlack(message, activeContext, imagePath);
+                return socialShareUtil.shareToSlack(message, activeContext);
             default:
                 return null;
         }

@@ -163,9 +163,9 @@ class MethodChannelAppinioSocialShare extends AppinioSocialSharePlatform {
   }
 
   @override
-  Future<String> shareToSlack(String message, {String? filePath}) async {
+  Future<String> shareToSlack(String message) async {
     return ((await methodChannel.invokeMethod<String>(
-        slack, {"imagePath": filePath, "message": message})) ??
+        slack, {"message": message})) ??
         "");
   }
 }

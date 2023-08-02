@@ -63,7 +63,7 @@ public class SocialShareUtil {
 
 
     public String shareToInstagramDirect(String text, Context activity) {
-        return shareTextToPackage(text, activity, INSTAGRAM_PACKAGE);
+        return shareTextToFBPackage(text, activity, INSTAGRAM_PACKAGE);
     }
 
     public String shareToInstagramFeed(String imagePath, Context activity, String text) {
@@ -82,8 +82,8 @@ public class SocialShareUtil {
         return shareFileAndTextToPackage(imagePath, text, activity, TELEGRAM_PACKAGE);
     }
 
-    public String shareToSlack(String imagePath, Context activity, String text) {
-        return shareFileAndTextToPackage(imagePath, text, activity, SLACK_PACKAGE);
+    public String shareToSlack(String text, Context activity) {
+        return shareTextToPackage(text, activity, SLACK_PACKAGE);
     }
 
     public String shareToMessenger(String text, Context activity) {
@@ -96,7 +96,7 @@ public class SocialShareUtil {
         }else{
             return ERROR_APP_NOT_AVAILABLE;
         }
-        return shareTextToPackage(text, activity, packageName);
+        return shareTextToFBPackage(text, activity, packageName);
     }
 
 
@@ -258,7 +258,7 @@ public class SocialShareUtil {
         }
     }
 
-    private String shareTextToPackage(
+    private String shareTextToFBPackage(
             String text,
             Context context,
             String packageName
@@ -292,6 +292,23 @@ public class SocialShareUtil {
         }
 
         shareIntent.setType(imagePath == null ? "text/*" : getMimeTypeOfFile(imagePath));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        shareIntent.setPackage(packageName);
+        try {
+            activity.startActivity(shareIntent);
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
+
+    private String shareTextToPackage(String text, Context activity, String packageName) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+
+        shareIntent.setType("text/*");
         shareIntent.putExtra(Intent.EXTRA_TEXT, text);
         shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

@@ -106,7 +106,7 @@ abstract class AppinioSocialSharePlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<String> shareToSlack(String message, {String? filePath}) {
+  Future<String> shareToSlack(String message) {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

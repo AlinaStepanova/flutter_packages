@@ -49,11 +49,11 @@ class AppinioSocialShare {
 
   Future<String> shareToInstagramStory(String appId,
       {String? stickerImage,
-      String? backgroundImage,
-      String? backgroundVideo,
-      String? backgroundTopColor,
-      String? backgroundBottomColor,
-      String? attributionURL}) {
+        String? backgroundImage,
+        String? backgroundVideo,
+        String? backgroundTopColor,
+        String? backgroundBottomColor,
+        String? attributionURL}) {
     return AppinioSocialSharePlatform.instance.shareToInstagramStory(appId,
         stickerImage: stickerImage,
         backgroundImage: backgroundImage,
@@ -65,11 +65,11 @@ class AppinioSocialShare {
 
   Future<String> shareToFacebookStory(String appId,
       {String? stickerImage,
-      String? backgroundImage,
-      String? backgroundVideo,
-      String? backgroundTopColor,
-      String? backgroundBottomColor,
-      String? attributionURL}) {
+        String? backgroundImage,
+        String? backgroundVideo,
+        String? backgroundTopColor,
+        String? backgroundBottomColor,
+        String? attributionURL}) {
     return AppinioSocialSharePlatform.instance.shareToFacebookStory(appId,
         stickerImage: stickerImage,
         backgroundImage: backgroundImage,
@@ -100,8 +100,8 @@ class AppinioSocialShare {
         .shareToSMS(message, filePath: filePath);
   }
 
-  Future<String> shareToSlack(String message, {String? filePath}) {
+  Future<String> shareToSlack(String message) {
     return AppinioSocialSharePlatform.instance
-        .shareToSlack(message, filePath: filePath);
+        .shareToSlack(message);
   }
 }
