@@ -45,7 +45,6 @@ public class ShareUtil{
                 output[app[1]] = false
             }
         }
-        print("output " + output)
         result(output)
     }
 
