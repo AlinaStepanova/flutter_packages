@@ -306,7 +306,6 @@ public class SocialShareUtil {
     }
 
     private String shareTextToPackage(String text, Context activity, String packageName) {
-        Log.d("jjj", "shareTextToPackage " + text);
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -317,7 +316,6 @@ public class SocialShareUtil {
             activity.startActivity(shareIntent);
             return SUCCESS;
         } catch (Exception e) {
-            Log.d("jjj", "shareTextToPackage error" + e.toString());
             e.printStackTrace();
             return ERROR;
         }
