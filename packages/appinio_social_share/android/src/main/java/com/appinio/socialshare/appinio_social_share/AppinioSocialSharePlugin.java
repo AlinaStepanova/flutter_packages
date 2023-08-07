@@ -59,11 +59,11 @@ public class AppinioSocialSharePlugin implements FlutterPlugin, MethodCallHandle
         try {
             String response = decideApp(call, result);
             if (response != null) {
-                Log.d("onMethodCall", "1");
+                Log.d("jjj", "onMethodCall 1");
                 result.success(response);
             }
         } catch (Exception e) {
-            Log.d("onMethodCall", "error");
+            Log.d("jjj", "onMethodCall error");
             Log.d("error", e.getLocalizedMessage());
             result.success(SocialShareUtil.ERROR);
         }
@@ -71,7 +71,7 @@ public class AppinioSocialSharePlugin implements FlutterPlugin, MethodCallHandle
     }
 
     public String decideApp(@NonNull MethodCall call, @NonNull Result result) {
-        Log.d("decideApp", call.method.toString());
+        Log.d("jjj", "decideApp" + call.method.toString());
         activeContext = (activity != null) ? activity.getApplicationContext() : context;
         String title = call.argument("title");
         String message = call.argument("message");

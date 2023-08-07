@@ -306,6 +306,7 @@ public class SocialShareUtil {
     }
 
     private String shareTextToPackage(String text, Context activity, String packageName) {
+        Log.d("!!!", "shareTextToPackage");
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.setPackage(packageName);
