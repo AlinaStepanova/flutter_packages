@@ -30,7 +30,9 @@ public class ShareUtil{
 
     
     public func getInstalledApps(result: @escaping FlutterResult){
-        let apps = [["instagram","instagram"],["facebook-stories","facebook_stories"],["whatsapp","whatsapp"],["tg","telegram"],["fb-messenger","messenger"],["tiktok","tiktok"],["instagram-stories","instagram_stories"],["twitter","twitter"],["sms","message"],["slack", "slack"]]
+        let apps = [["instagram","instagram"],["facebook-stories","facebook_stories"],
+        ["whatsapp","whatsapp"],["tg","telegram"],["fb-messenger","messenger"],["tiktok","tiktok"],
+        ["instagram-stories","instagram_stories"],["twitter","twitter"],["sms","message"],["slack","slack"]]
         var output:[String: Bool] = [:]
         for app in apps {
             if(UIApplication.shared.canOpenURL(URL(string:(app[0])+"://")!)){
@@ -43,6 +45,7 @@ public class ShareUtil{
                 output[app[1]] = false
             }
         }
+        print("output " + output)
         result(output)
     }
 
