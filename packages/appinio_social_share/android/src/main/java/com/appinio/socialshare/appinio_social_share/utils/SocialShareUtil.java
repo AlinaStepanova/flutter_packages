@@ -311,9 +311,10 @@ public class SocialShareUtil {
         shareIntent.setPackage(packageName);
         shareIntent.putExtra(Intent.EXTRA_TEXT, text);
         try {
-            activity.startActivity(shareIntent);
+            activity.startActivity(Intent.createChooser(shareIntent, "Share with"));
             return SUCCESS;
         } catch (Exception e) {
+            Log.d("!!!", e.toString());
             e.printStackTrace();
             return ERROR;
         }
