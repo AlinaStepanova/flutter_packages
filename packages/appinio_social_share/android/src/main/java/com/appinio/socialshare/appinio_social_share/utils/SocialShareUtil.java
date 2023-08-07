@@ -307,14 +307,11 @@ public class SocialShareUtil {
 
     private String shareTextToPackage(String text, Context activity, String packageName) {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
-
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
-        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         shareIntent.setPackage(packageName);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
         try {
-            activity.startActivityForResult(shareIntent, 1092);
+            activity.startActivity(shareIntent);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
