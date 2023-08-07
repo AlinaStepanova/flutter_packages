@@ -30,7 +30,7 @@ public class ShareUtil{
 
     
     public func getInstalledApps(result: @escaping FlutterResult){
-        let apps = [["instagram","instagram"],["facebook-stories","facebook_stories"],["whatsapp","whatsapp"],["tg","telegram"],["fb-messenger","messenger"],["tiktok","tiktok"],["instagram-stories","instagram_stories"],["twitter","twitter"],["sms","message"]]
+        let apps = [["instagram","instagram"],["facebook-stories","facebook_stories"],["whatsapp","whatsapp"],["tg","telegram"],["fb-messenger","messenger"],["tiktok","tiktok"],["instagram-stories","instagram_stories"],["twitter","twitter"],["sms","message"],["slack", "slack"]]
         var output:[String: Bool] = [:]
         for app in apps {
             if(UIApplication.shared.canOpenURL(URL(string:(app[0])+"://")!)){
@@ -316,8 +316,24 @@ public class ShareUtil{
             result(ERROR_APP_NOT_AVAILABLE);
         }
     }
-    
-    
+
+    func shareToSlack(args : [String: Any?],result: @escaping FlutterResult)  {
+        let message = args[self.argMessage] as? String
+        let slackURL = "slack://send?text="+message!
+
+        var characterSet = CharacterSet.urlQueryAllowed
+        characterSet.insert(charactersIn: "?&")
+        let slackAppURL  = NSURL(string: slackURL.addingPercentEncoding(withAllowedCharacters: characterSet)!)
+        if UIApplication.shared.canOpenURL(slackAppURL! as URL)
+            {
+                UIApplication.shared.openURL(slackAppURL! as URL)
+                result(SUCCESS);
+            }
+            else
+            {
+                result(ERROR_APP_NOT_AVAILABLE);
+            }
+    }
     
     func shareToFacebookPost(args : [String: Any?],result: @escaping FlutterResult, delegate: SharingDelegate) {
         let message = args[self.argMessage] as? String
