@@ -53,6 +53,7 @@ public class SocialShareUtil {
     private final String FACEBOOK_MESSENGER_LITE_PACKAGE = "com.facebook.mlite";
     private final String SMS_DEFAULT_APPLICATION = "sms_default_application";
     private final String SLACK_PACKAGE = "com.Slack";
+    private final String GMAIL_PACKAGE = "com.google.android.gm";
 
     private static CallbackManager callbackManager;
 
@@ -86,14 +87,18 @@ public class SocialShareUtil {
         return shareTextToPackage(text, activity, SLACK_PACKAGE);
     }
 
+    public String shareToGmail(String text, Context activity) {
+        return shareTextToPackage(text, activity, GMAIL_PACKAGE);
+    }
+
     public String shareToMessenger(String text, Context activity) {
         Map<String, Boolean> apps = getInstalledApps(activity);
         String packageName;
-        if(apps.get("messenger")){
+        if (apps.get("messenger")) {
             packageName = FACEBOOK_MESSENGER_PACKAGE;
-        }else if(apps.get("messenger-lite")){
+        } else if (apps.get("messenger-lite")) {
             packageName = FACEBOOK_MESSENGER_LITE_PACKAGE;
-        }else{
+        } else {
             return ERROR_APP_NOT_AVAILABLE;
         }
         return shareTextToFBPackage(text, activity, packageName);
@@ -157,7 +162,7 @@ public class SocialShareUtil {
             shareIntent.setType("image/*");
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            if(stickerImage!=null){
+            if (stickerImage != null) {
                 File file = new File(stickerImage);
                 Uri stickerImageUri = FileProvider.getUriForFile(activity, activity.getApplicationContext().getPackageName() + ".provider", file);
                 shareIntent.putExtra("interactive_asset_uri", stickerImageUri);
@@ -221,11 +226,11 @@ public class SocialShareUtil {
         try {
             Map<String, Boolean> apps = getInstalledApps(activity);
             String packageName;
-            if(apps.get("facebook")){
+            if (apps.get("facebook")) {
                 packageName = FACEBOOK_PACKAGE;
-            }else if(apps.get("facebook-lite")){
+            } else if (apps.get("facebook-lite")) {
                 packageName = FACEBOOK_LITE_PACKAGE;
-            }else{
+            } else {
                 return ERROR_APP_NOT_AVAILABLE;
             }
 
@@ -236,7 +241,7 @@ public class SocialShareUtil {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("com.facebook.platform.extra.APPLICATION_ID", appId);
-            if(stickerImage!=null) {
+            if (stickerImage != null) {
                 File file = new File(stickerImage);
                 Uri stickerImageFile = FileProvider.getUriForFile(activity, activity.getPackageName() + ".provider", file);
                 intent.putExtra("interactive_asset_uri", stickerImageFile);
@@ -245,7 +250,7 @@ public class SocialShareUtil {
             intent.putExtra("content_url", attributionURL);
             intent.putExtra("top_background_color", backgroundTopColor);
             intent.putExtra("bottom_background_color", backgroundBottomColor);
-            if(backgroundImage!=null){
+            if (backgroundImage != null) {
                 File file1 = new File(backgroundImage);
                 Uri backgroundImageUri = FileProvider.getUriForFile(activity, activity.getPackageName() + ".provider", file1);
                 intent.setDataAndType(backgroundImageUri, getMimeTypeOfFile(backgroundImage));
@@ -335,6 +340,7 @@ public class SocialShareUtil {
         appsMap.put("twitter", TWITTER_PACKAGE);
         appsMap.put("tiktok", TIKTOK_PACKAGE);
         appsMap.put("slack", SLACK_PACKAGE);
+        appsMap.put("gmail", GMAIL_PACKAGE);
 
         Map<String, Boolean> apps = new HashMap<String, Boolean>();
 
@@ -345,7 +351,9 @@ public class SocialShareUtil {
         intent.setData(Uri.parse("sms:"));
         List<ResolveInfo> resolvedActivities = pm.queryIntentActivities(intent, 0);
         apps.put("message", !resolvedActivities.isEmpty());
-        String[] appNames = {"instagram", "facebook_stories", "whatsapp", "telegram", "messenger", "facebook","facebook-lite","messenger-lite", "instagram_stories", "twitter", "tiktok", "slack"};
+        String[] appNames = {"instagram", "facebook_stories", "whatsapp", "telegram", "messenger",
+                "facebook", "facebook-lite", "messenger-lite", "instagram_stories", "twitter",
+                "tiktok", "slack", "gmail"};
 
         for (int i = 0; i < appNames.length; i++) {
             try {
@@ -359,7 +367,7 @@ public class SocialShareUtil {
     }
 
     private static String getMimeTypeOfFile(String pathName) {
-        try{
+        try {
             Path path = null;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 path = new File(pathName).toPath();
@@ -367,7 +375,7 @@ public class SocialShareUtil {
                 return mimeType;
             }
             return "*/*";
-        }catch (Exception e){
+        } catch (Exception e) {
             return "";
         }
     }

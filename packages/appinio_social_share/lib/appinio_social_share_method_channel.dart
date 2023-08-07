@@ -22,6 +22,7 @@ class MethodChannelAppinioSocialShare extends AppinioSocialSharePlatform {
   final String copyToClipboard = "copy_to_clipboard";
   final String telegram = "telegram";
   final String slack = "slack";
+  final String gmail = "gmail";
   final String installedApps = "installed_apps";
 
   /// The method channel used to interact with the native platform.
@@ -37,7 +38,7 @@ class MethodChannelAppinioSocialShare extends AppinioSocialSharePlatform {
   Future<String> shareToTiktokStatus(String filePath) async {
     if (Platform.isIOS) return "Not implemented for iOS";
     return ((await methodChannel.invokeMethod<String>(
-            tiktokStatus, {"imagePath": filePath, "message": ""})) ??
+        tiktokStatus, {"imagePath": filePath, "message": ""})) ??
         "");
   }
 
@@ -45,42 +46,42 @@ class MethodChannelAppinioSocialShare extends AppinioSocialSharePlatform {
   Future<String> shareToTiktokPost(String videoFile) async {
     if (Platform.isAndroid) return "Not implemented for android";
     return ((await methodChannel
-            .invokeMethod<String>(tiktokPost, {"videoFile": videoFile})) ??
+        .invokeMethod<String>(tiktokPost, {"videoFile": videoFile})) ??
         "");
   }
 
   @override
   Future<String> shareToTwitter(String message, {String? filePath}) async {
     return ((await methodChannel.invokeMethod<String>(
-            twitter, {"imagePath": filePath, "message": message})) ??
+        twitter, {"imagePath": filePath, "message": message})) ??
         "");
   }
 
   @override
   Future<String> shareToTelegram(String message, {String? filePath}) async {
     return ((await methodChannel.invokeMethod<String>(
-            telegram, {"imagePath": filePath, "message": message})) ??
+        telegram, {"imagePath": filePath, "message": message})) ??
         "");
   }
 
   @override
   Future<String> shareToWhatsapp(String message, {String? filePath}) async {
     return ((await methodChannel.invokeMethod<String>(
-            whatsapp, {"imagePath": filePath, "message": message})) ??
+        whatsapp, {"imagePath": filePath, "message": message})) ??
         "");
   }
 
   @override
   Future<String> shareToSMS(String message, {String? filePath}) async {
     return ((await methodChannel.invokeMethod<String>(
-            sms, {"message": message, "imagePath": filePath})) ??
+        sms, {"message": message, "imagePath": filePath})) ??
         "");
   }
 
   @override
   Future<String> copyToClipBoard(String message) async {
     return ((await methodChannel
-            .invokeMethod<String>(copyToClipboard, {"message": message})) ??
+        .invokeMethod<String>(copyToClipboard, {"message": message})) ??
         "");
   }
 
@@ -88,84 +89,89 @@ class MethodChannelAppinioSocialShare extends AppinioSocialSharePlatform {
   Future<String> shareToSystem(String title, String message,
       {String? filePath}) async {
     return ((await methodChannel.invokeMethod<String>(systemShare,
-            {"message": message, "title": title, "imagePath": filePath})) ??
+        {"message": message, "title": title, "imagePath": filePath})) ??
         "");
   }
 
   @override
   Future<String> shareToInstagramDirect(String message) async {
     return ((await methodChannel
-            .invokeMethod<String>(instagramDirect, {"message": message})) ??
+        .invokeMethod<String>(instagramDirect, {"message": message})) ??
         "");
   }
 
   @override
   Future<String> shareToInstagramFeed(String filePath) async {
     return ((await methodChannel.invokeMethod<String>(
-            instagramFeed, {"imagePath": filePath, "message": ""})) ??
+        instagramFeed, {"imagePath": filePath, "message": ""})) ??
         "");
   }
 
   @override
   Future<String> shareToMessenger(String message) async {
     return ((await methodChannel
-            .invokeMethod<String>(messenger, {"message": message})) ??
+        .invokeMethod<String>(messenger, {"message": message})) ??
         "");
   }
 
   @override
   Future<String> shareToInstagramStory(String appId,
       {String? stickerImage,
-      String? backgroundImage,
-      String? backgroundVideo,
-      String? backgroundTopColor,
-      String? backgroundBottomColor,
-      String? attributionURL}) async {
+        String? backgroundImage,
+        String? backgroundVideo,
+        String? backgroundTopColor,
+        String? backgroundBottomColor,
+        String? attributionURL}) async {
     return ((await methodChannel.invokeMethod<String>(instagramStories, {
-          "stickerImage": stickerImage,
-          "backgroundImage":
-              backgroundImage ?? (Platform.isAndroid ? backgroundVideo : null),
-          "videoFile": backgroundVideo,
-          "backgroundTopColor": backgroundTopColor,
-          "backgroundBottomColor": backgroundBottomColor,
-          "attributionURL": attributionURL,
-          "appId": appId
-        })) ??
+      "stickerImage": stickerImage,
+      "backgroundImage":
+      backgroundImage ?? (Platform.isAndroid ? backgroundVideo : null),
+      "videoFile": backgroundVideo,
+      "backgroundTopColor": backgroundTopColor,
+      "backgroundBottomColor": backgroundBottomColor,
+      "attributionURL": attributionURL,
+      "appId": appId
+    })) ??
         "");
   }
 
   @override
   Future<String> shareToFacebookStory(String appId,
       {String? stickerImage,
-      String? backgroundImage,
-      String? backgroundVideo,
-      String? backgroundTopColor,
-      String? backgroundBottomColor,
-      String? attributionURL}) async {
+        String? backgroundImage,
+        String? backgroundVideo,
+        String? backgroundTopColor,
+        String? backgroundBottomColor,
+        String? attributionURL}) async {
     return ((await methodChannel.invokeMethod<String>(facebookStories, {
-          "stickerImage": stickerImage,
-          "backgroundImage":
-              backgroundImage ?? (Platform.isAndroid ? backgroundVideo : null),
-          "videoFile": backgroundVideo,
-          "backgroundTopColor": backgroundTopColor,
-          "backgroundBottomColor": backgroundBottomColor,
-          "attributionURL": attributionURL,
-          "appId": appId
-        })) ??
+      "stickerImage": stickerImage,
+      "backgroundImage":
+      backgroundImage ?? (Platform.isAndroid ? backgroundVideo : null),
+      "videoFile": backgroundVideo,
+      "backgroundTopColor": backgroundTopColor,
+      "backgroundBottomColor": backgroundBottomColor,
+      "attributionURL": attributionURL,
+      "appId": appId
+    })) ??
         "");
   }
 
   @override
   Future<String> shareToFacebook(String hashtag, String filePath) async {
     return ((await methodChannel.invokeMethod<String>(
-            facebook, {"imagePath": filePath, "message": hashtag})) ??
+        facebook, {"imagePath": filePath, "message": hashtag})) ??
         "");
   }
 
   @override
   Future<String> shareToSlack(String message) async {
     return ((await methodChannel.invokeMethod<String>(
-        slack, {"message": message})) ??
-        "");
+        slack, {"message": message})) ?? "");
+  }
+
+  @override
+  Future<String> shareToGmail(String message) async {
+    return ((await methodChannel.invokeMethod<String>(
+        gmail, {"message": message})) ?? "");
   }
 }

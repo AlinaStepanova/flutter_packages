@@ -109,4 +109,8 @@ abstract class AppinioSocialSharePlatform extends PlatformInterface {
   Future<String> shareToSlack(String message) {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
+  Future<String> shareToGmail(String message) {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
 }

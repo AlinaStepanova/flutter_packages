@@ -38,7 +38,7 @@ public class AppinioSocialSharePlugin implements FlutterPlugin, MethodCallHandle
     private final String COPY_TO_CLIPBOARD = "copy_to_clipboard";
     private final String TELEGRAM = "telegram";
     private final String SLACK = "slack";
-
+    private final String GMAIL = "gmail";
 
     private SocialShareUtil socialShareUtil;
     private MethodChannel channel;
@@ -113,6 +113,8 @@ public class AppinioSocialSharePlugin implements FlutterPlugin, MethodCallHandle
                 return socialShareUtil.shareToSMS(message, activeContext, imagePath);
             case SLACK:
                 return socialShareUtil.shareToSlack(message, activeContext);
+            case GMAIL:
+                return socialShareUtil.shareToGmail(message, activeContext);
             default:
                 return null;
         }

@@ -104,4 +104,9 @@ class AppinioSocialShare {
     return AppinioSocialSharePlatform.instance
         .shareToSlack(message);
   }
+
+  Future<String> shareToGmail(String message) {
+    return AppinioSocialSharePlatform.instance
+        .shareToGmail(message);
+  }
 }
