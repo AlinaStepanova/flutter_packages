@@ -306,16 +306,18 @@ public class SocialShareUtil {
     }
 
     private String shareTextToPackage(String text, Context activity, String packageName) {
-        Log.d("!!!", "shareTextToPackage");
+        Log.d("jjj", "shareTextToPackage");
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
+        shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         shareIntent.setPackage(packageName);
         shareIntent.putExtra(Intent.EXTRA_TEXT, text);
         try {
             activity.startActivity(Intent.createChooser(shareIntent, "Share with"));
             return SUCCESS;
         } catch (Exception e) {
-            Log.d("!!!", e.toString());
+            Log.d("jjj", e.toString());
             e.printStackTrace();
             return ERROR;
         }
