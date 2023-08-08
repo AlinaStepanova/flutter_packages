@@ -4,7 +4,7 @@ import FBSDKShareKit
 import Social
 import TikTokOpenSDK
 import MobileCoreServices
-
+import MessageUI
 
 
 public class ShareUtil{
