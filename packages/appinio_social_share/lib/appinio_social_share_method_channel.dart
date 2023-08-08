@@ -23,6 +23,7 @@ class MethodChannelAppinioSocialShare extends AppinioSocialSharePlatform {
   final String telegram = "telegram";
   final String slack = "slack";
   final String gmail = "gmail";
+  final String mail = "mail";
   final String installedApps = "installed_apps";
 
   /// The method channel used to interact with the native platform.
@@ -173,5 +174,11 @@ class MethodChannelAppinioSocialShare extends AppinioSocialSharePlatform {
   Future<String> shareToGmail(String message) async {
     return ((await methodChannel.invokeMethod<String>(
         gmail, {"message": message})) ?? "");
+  }
+
+  @override
+  Future<String> shareToMail(String message) async {
+    return ((await methodChannel.invokeMethod<String>(
+        mail, {"message": message})) ?? "");
   }
 }

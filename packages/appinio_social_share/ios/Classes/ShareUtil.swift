@@ -336,6 +336,19 @@ public class ShareUtil{
                 result(ERROR_APP_NOT_AVAILABLE);
             }
     }
+
+    public func shareToMail(args : [String: Any?],result: @escaping FlutterResult) {
+        let text = args[argMessage] as? String
+
+        var picker = MFMailComposeViewController()
+            if MFMailComposeViewController.canSendMail() {
+                picker.mailComposeDelegate = self
+                picker.setSubject(text)
+                picker.setMessageBody(messageBody.text, isHTML: true)
+                present(picker as? UIViewController ?? UIViewController(), animated: true) { _ in }
+                result(SUCCESS)
+            }
+    }
     
     func shareToFacebookPost(args : [String: Any?],result: @escaping FlutterResult, delegate: SharingDelegate) {
         let message = args[self.argMessage] as? String
