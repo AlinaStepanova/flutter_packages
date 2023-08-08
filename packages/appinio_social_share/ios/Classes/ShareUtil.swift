@@ -32,7 +32,8 @@ public class ShareUtil{
     public func getInstalledApps(result: @escaping FlutterResult){
         let apps = [["instagram","instagram"],["facebook-stories","facebook_stories"],
         ["whatsapp","whatsapp"],["tg","telegram"],["fb-messenger","messenger"],["tiktok","tiktok"],
-        ["instagram-stories","instagram_stories"],["twitter","twitter"],["sms","message"],["slack","slack"],["mailto","mail"]]
+        ["instagram-stories","instagram_stories"],["twitter","twitter"],["sms","message"],["slack","slack"],
+        ["mailto","mail"], ["googlegmail","gmail"]]
         var output:[String: Bool] = [:]
         for app in apps {
             if(UIApplication.shared.canOpenURL(URL(string:(app[0])+"://")!)){
@@ -342,10 +343,26 @@ public class ShareUtil{
 
         var picker = MFMailComposeViewController()
             if MFMailComposeViewController.canSendMail() {
-                //picker.mailComposeDelegate = self
                 picker.setMessageBody(text!, isHTML: true)
                 UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
                 result(SUCCESS)
+            }
+    }
+
+    public func shareToGmail(args : [String: Any?],result: @escaping FlutterResult) {
+        let message = args[self.argMessage] as? String
+        let gmailURL = "googlegmail://co?body="+message!
+
+        var characterSet = CharacterSet.urlQueryAllowed
+        characterSet.insert(charactersIn: "?&")
+        let gmailAppURL = NSURL(string: gmailURL.addingPercentEncoding(withAllowedCharacters: characterSet)!)
+        if UIApplication.shared.canOpenURL(gmailAppURL! as URL)
+            {
+                UIApplication.shared.openURL(gmailAppURL! as URL)
+                result(SUCCESS);
+            } else
+            {
+                result(ERROR_APP_NOT_AVAILABLE);
             }
     }
     

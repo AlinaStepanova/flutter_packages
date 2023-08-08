@@ -24,6 +24,7 @@ public class SwiftAppinioSocialSharePlugin: NSObject, FlutterPlugin, SharingDele
     private let TIKTOK_STATUS:String = "tiktok_status";
     private let SLACK:String = "slack";
     private let MAIL:String = "mail";
+    private let GMAIL:String = "gmail";
     private let INSTALLED_APPS:String = "installed_apps";
 
 
@@ -95,6 +96,9 @@ public class SwiftAppinioSocialSharePlugin: NSObject, FlutterPlugin, SharingDele
       case MAIL:
           shareUtil.shareToMail(args: args!, result: result)
           break
+      case GMAIL:
+           shareUtil.shareToGmail(args: args!, result: result)
+           break
       default:
           result(shareUtil.ERROR)
       }
