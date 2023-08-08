@@ -343,8 +343,8 @@ public class ShareUtil{
         var picker = MFMailComposeViewController()
             if MFMailComposeViewController.canSendMail() {
                 picker.mailComposeDelegate = self
-                picker.setMessageBody(text, isHTML: true)
-                present(picker as? UIViewController ?? UIViewController(), animated: true) { _ in }
+                picker.setMessageBody(text!, isHTML: true)
+                UIApplication.topViewController()?.present(picker as? UIViewController ?? UIViewController(), animated: true) { _ in }
                 result(SUCCESS)
             }
     }
