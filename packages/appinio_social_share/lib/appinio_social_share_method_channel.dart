@@ -18,6 +18,7 @@ class MethodChannelAppinioSocialShare extends AppinioSocialSharePlatform {
   final String sms = "sms";
   final String tiktokStatus = "tiktok_status";
   final String tiktokPost = "tiktok_post";
+  final String tiktokDirect = "tiktok_direct";
   final String systemShare = "system_share";
   final String copyToClipboard = "copy_to_clipboard";
   final String telegram = "telegram";
@@ -33,6 +34,12 @@ class MethodChannelAppinioSocialShare extends AppinioSocialSharePlatform {
   @override
   Future<Map> getInstalledApps() async {
     return await methodChannel.invokeMethod(installedApps);
+  }
+
+  @override
+  Future<String> shareToTikTokDirect(String message) async {
+    return ((await methodChannel.invokeMethod<String>(
+        tiktokDirect, {"message": message})) ?? "");
   }
 
   @override

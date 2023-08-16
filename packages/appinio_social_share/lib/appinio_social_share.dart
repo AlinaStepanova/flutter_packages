@@ -84,6 +84,10 @@ class AppinioSocialShare {
     return AppinioSocialSharePlatform.instance.shareToTiktokStatus(filePath);
   }
 
+  Future<String> shareToTiktokDirect(String message) {
+    return AppinioSocialSharePlatform.instance.shareToTiktokDirect(message);
+  }
+
   Future<String> shareToTiktokPost(String videoFile) {
     if (Platform.isAndroid) return shareToTiktokStatus(videoFile);
     return AppinioSocialSharePlatform.instance.shareToTiktokPost(videoFile);
@@ -103,6 +107,11 @@ class AppinioSocialShare {
   Future<String> shareToSlack(String message) {
     return AppinioSocialSharePlatform.instance
         .shareToSlack(message);
+  }
+
+  Future<String> shareToTikTok(String message) {
+    return AppinioSocialSharePlatform.instance
+        .shareToTikTok(message);
   }
 
   Future<String> shareToGmail(String message) {
