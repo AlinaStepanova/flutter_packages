@@ -349,10 +349,6 @@ public class ShareUtil{
             }
     }
 
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
-    }
-
     public func shareToGmail(args : [String: Any?],result: @escaping FlutterResult) {
         let message = args[self.argMessage] as? String
         let gmailURL = "googlegmail://co?body="+message!
