@@ -7,7 +7,7 @@ import MobileCoreServices
 import MessageUI
 
 
-public class ShareUtil{
+public class ShareUtil: MFMailComposeViewControllerDelegate {
     
     public let SUCCESS: String = "SUCCESS"
     public let ERROR_APP_NOT_AVAILABLE: String = "ERROR_APP_NOT_AVAILABLE"
@@ -614,7 +614,7 @@ public class ShareUtil{
 }
 
 extension UIApplication {
-    class func topViewController(controller: UIViewController, MFMailComposeViewControllerDelegate? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+    class func topViewController(controller: UIViewController?, MFMailComposeViewControllerDelegate = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
         if let navigationController = controller as? UINavigationController {
             return topViewController(controller: navigationController.visibleViewController)
         }
