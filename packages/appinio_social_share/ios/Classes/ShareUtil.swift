@@ -7,7 +7,7 @@ import MobileCoreServices
 import MessageUI
 
 
-public class ShareUtil: MFMailComposeViewControllerDelegate {
+public class ShareUtil {
     
     public let SUCCESS: String = "SUCCESS"
     public let ERROR_APP_NOT_AVAILABLE: String = "ERROR_APP_NOT_AVAILABLE"
@@ -341,14 +341,42 @@ public class ShareUtil: MFMailComposeViewControllerDelegate {
     public func shareToMail(args : [String: Any?],result: @escaping FlutterResult) {
         let text = args[argMessage] as? String
 
-        var picker = MFMailComposeViewController()
-            if MFMailComposeViewController.canSendMail() {
-                picker.mailComposeDelegate = self
-                picker.delegate = self
-                picker.setMessageBody(text!, isHTML: true)
-                UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
-                result(SUCCESS)
+        var picker = ShareViewController()
+        picker.sendEmail(text!)
+    }
+
+    class ShareViewController: UIViewController, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate {
+
+    @IBAction func emailButtonDidTouch(sender: AnyObject) {
+        sendEmail()
+    }
+
+    func sendEmail(text: String) {
+        let mc = MFMailComposeViewController()
+        mc.mailComposeDelegate = self
+
+        if mc.canSendMail() {
+            mc.setMessageBody(text, isHTML: true)
+            UIApplication.topViewController()?.present(mc, animated: true, completion: nil)
+            result(SUCCESS)
+        }
+    }
+
+        func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result:MFMailComposeResult, error:NSError?) {
+            switch result.rawValue {
+            case MFMailComposeResultCancelled.rawValue:
+                print("Mail cancelled")
+            case MFMailComposeResultSaved.rawValue:
+                print("Mail saved")
+            case MFMailComposeResultSent.rawValue:
+                print("Mail sent")
+            case MFMailComposeResultFailed.rawValue:
+                print("Mail sent failure: %@", [error.localizedDescription])
+            default:
+                break
             }
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
 
     public func shareToGmail(args : [String: Any?],result: @escaping FlutterResult) {
@@ -614,7 +642,7 @@ public class ShareUtil: MFMailComposeViewControllerDelegate {
 }
 
 extension UIApplication {
-    class func topViewController(controller: UIViewController?, MFMailComposeViewControllerDelegate = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+    class func topViewController(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
         if let navigationController = controller as? UINavigationController {
             return topViewController(controller: navigationController.visibleViewController)
         }
