@@ -75,10 +75,6 @@ public class SocialShareUtil {
         return shareFileAndTextToPackage(imagePath, text, activity, TIKTOK_PACKAGE);
     }
 
-    public String shareToTikTokDirect(Context activity, String text) {
-        return shareTextToPackage(text, activity, TIKTOK_PACKAGE);
-    }
-
     public String shareToTwitter(String imagePath, Context activity, String text) {
         return shareFileAndTextToPackage(imagePath, text, activity, TWITTER_PACKAGE);
     }
