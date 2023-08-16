@@ -109,11 +109,6 @@ class AppinioSocialShare {
         .shareToSlack(message);
   }
 
-  Future<String> shareToTikTok(String message) {
-    return AppinioSocialSharePlatform.instance
-        .shareToTikTok(message);
-  }
-
   Future<String> shareToGmail(String message) {
     return AppinioSocialSharePlatform.instance
         .shareToGmail(message);
