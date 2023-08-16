@@ -84,7 +84,7 @@ class AppinioSocialShare {
     return AppinioSocialSharePlatform.instance.shareToTiktokStatus(filePath);
   }
 
-  Future<String> shareToTiktokDirect(String message) {
+  Future<String> shareToTikTokDirect(String message) {
     return AppinioSocialSharePlatform.instance.shareToTiktokDirect(message);
   }
 
