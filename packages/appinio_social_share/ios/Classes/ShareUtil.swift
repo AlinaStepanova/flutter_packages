@@ -350,18 +350,12 @@ public class ShareUtil {
         let body = text!
 
         let coded = "mailto:?body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-//
-//         if let emailURL:NSURL = NSURL(string: coded!)
-//                {
-//                   if UIApplication.shared.canOpenURL(emailURL as URL){
-//                      UIApplication.shared.open(emailURL as URL)
-//                   }
-//                }
 
-
-               let mailURL = URL(string: coded)!
-               if UIApplication.shared.canOpenURL(mailURL) {
-                   UIApplication.shared.openURL(mailURL)
+        if let emailURL:NSURL = NSURL(string: coded!)
+               {
+                  if UIApplication.shared.canOpenURL(emailURL as URL){
+                     UIApplication.shared.open(emailURL as URL)
+                  }
                }
 
       }
