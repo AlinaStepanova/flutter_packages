@@ -7,7 +7,7 @@ import MobileCoreServices
 import MessageUI
 
 
-public class ShareUtil {
+public class ShareUtil : MFMailComposeViewControllerDelegate {
     
     public let SUCCESS: String = "SUCCESS"
     public let ERROR_APP_NOT_AVAILABLE: String = "ERROR_APP_NOT_AVAILABLE"
@@ -340,12 +340,16 @@ public class ShareUtil {
 
     public func shareToMail(args : [String: Any?],result: @escaping FlutterResult) {
         let text = args[argMessage] as? String
-        var picker = ClosableMailViewController()
-
+        let picker = MFMailComposeViewController()
+        picker.mailComposeDelegate = self
         if MFMailComposeViewController.canSendMail() {
           picker.setMessageBody(text!, isHTML: true)
-          picker.present(picker, animated: true, completion: nil)
+          UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
         }
+      }
+
+      func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismiss(animated: true, completion: nil)
       }
 
     public func shareToGmail(args : [String: Any?],result: @escaping FlutterResult) {
@@ -632,11 +636,4 @@ class TransparentViewController: UIViewController {
         view.backgroundColor = UIColor.clear
         view.isOpaque = false
     }
-}
-
-class ClosableMailViewController: UIViewController, MFMailComposeViewControllerDelegate {
-
-  func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
-      dismissViewControllerAnimated(true, completion: nil)
-  }
 }
