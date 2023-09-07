@@ -636,6 +636,6 @@ class TransparentViewController: UIViewController {
 
 class ClosableMailViewController: MFMailComposeViewController {
   func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-    controller.dismissViewControllerAnimated(true, completion: nil)
+    controller.dismiss(animated: true, completion: nil)
   }
 }
