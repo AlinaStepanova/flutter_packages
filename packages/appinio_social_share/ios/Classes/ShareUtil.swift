@@ -343,8 +343,9 @@ public class ShareUtil {
         var picker = ClosableMailViewController()
 
         if MFMailComposeViewController.canSendMail() {
+          picker.mailComposeDelegate = self
           picker.setMessageBody(text!, isHTML: true)
-          UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
+          picker.present(picker, animated: true, completion: nil)
         }
       }
 
@@ -634,10 +635,9 @@ class TransparentViewController: UIViewController {
     }
 }
 
-class ClosableMailViewController: MFMailComposeViewController {
+class ClosableMailViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
-  @objc(mailComposeController:didFinishWithResult:error:)
-  func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-    controller.dismiss(animated: true, completion: nil)
+  func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+      dismissViewControllerAnimated(true, completion: nil)
   }
 }
