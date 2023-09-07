@@ -7,7 +7,7 @@ import MobileCoreServices
 import MessageUI
 
 
-public class ShareUtil {
+public class ShareUtil : NSObject, MFMailComposeViewControllerDelegate {
     
     public let SUCCESS: String = "SUCCESS"
     public let ERROR_APP_NOT_AVAILABLE: String = "ERROR_APP_NOT_AVAILABLE"
@@ -339,7 +339,34 @@ public class ShareUtil {
     }
 
     public func shareToMail(args : [String: Any?],result: @escaping FlutterResult) {
-        let text = args[argMessage] as? String
+        if MFMailComposeViewController.canSendMail() {
+          let text = args[argMessage] as? String
+          let picker = MFMailComposeViewController()
+          picker.mailComposeDelegate = self
+          picker.delegate = self
+          picker.setMessageBody(text!, isHTML: true)
+          UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
+        }
+      }
+
+      func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    //    controller.dismiss(animated: true, completion: nil)
+        UIApplication.topViewController()?.dismiss(animated: true, completion: nil)
+      }
+
+    // public func shareToMail(args : [String: Any?],result: @escaping FlutterResult) {
+//         let text = args[argMessage] as? String
+//
+//         if MFMailComposeViewController.canSendMail() {
+//                 let mailComposerVC = MFMailComposeViewController()
+//                 mailComposerVC.mailComposeDelegate = self
+//                 mailComposerVC.setToRecipients([email])
+//                 mailComposerVC.setSubject(subject)
+//                 mailComposerVC.setMessageBody(bodyText, isHTML: true)
+//                 self.present(mailComposerVC, animated: true, completion: nil)
+//             }
+
+
 //         let picker = MFMailComposeViewController()
 //         picker.mailComposeDelegate = self
 //         if MFMailComposeViewController.canSendMail() {
@@ -347,18 +374,15 @@ public class ShareUtil {
 //           UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
 //         }
 
-        let body = text!
-
-        let coded = "mailto:?body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-
-        if let emailURL:NSURL = NSURL(string: coded!)
-               {
-                  if UIApplication.shared.canOpenURL(emailURL as URL){
-                     UIApplication.shared.open(emailURL as URL)
-                  }
-               }
-
-      }
+//         let body = text!
+//         let coded = "mailto:?body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+//         if let emailURL:NSURL = NSURL(string: coded!)
+//             {
+//                 if UIApplication.shared.canOpenURL(emailURL as URL){
+//                      UIApplication.shared.open(emailURL as URL)
+//                   }
+//                }
+      // }
 
 
     public func shareToGmail(args : [String: Any?],result: @escaping FlutterResult) {
