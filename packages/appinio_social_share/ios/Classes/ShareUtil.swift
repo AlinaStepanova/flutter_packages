@@ -340,15 +340,20 @@ public class ShareUtil {
 
     public func shareToMail(args : [String: Any?],result: @escaping FlutterResult) {
         let text = args[argMessage] as? String
-
         var picker = MFMailComposeViewController()
+        picker.mailComposeDelegate = self
+
         if MFMailComposeViewController.canSendMail() {
-            //picker.mailComposeDelegate = self
-            //picker.delegate = self
-            picker.setMessageBody(text!, isHTML: true)
-            UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
+          //picker.mailComposeDelegate = self
+          //picker.delegate = self
+          picker.setMessageBody(text!, isHTML: true)
+          UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
         }
-    }
+      }
+
+      func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismiss(animated: true)
+      }
 
     public func shareToGmail(args : [String: Any?],result: @escaping FlutterResult) {
         let message = args[self.argMessage] as? String
