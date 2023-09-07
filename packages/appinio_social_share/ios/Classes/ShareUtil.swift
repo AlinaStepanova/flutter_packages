@@ -343,7 +343,6 @@ public class ShareUtil {
         var picker = ClosableMailViewController()
 
         if MFMailComposeViewController.canSendMail() {
-          picker.mailComposeDelegate = self
           picker.setMessageBody(text!, isHTML: true)
           picker.present(picker, animated: true, completion: nil)
         }
