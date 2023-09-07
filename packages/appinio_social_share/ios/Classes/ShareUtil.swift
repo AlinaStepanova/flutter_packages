@@ -343,47 +343,14 @@ public class ShareUtil : NSObject, MFMailComposeViewControllerDelegate {
           let text = args[argMessage] as? String
           let picker = MFMailComposeViewController()
           picker.mailComposeDelegate = self
-          //picker.delegate = self
           picker.setMessageBody(text!, isHTML: true)
           UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
         }
       }
 
     public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-    //    controller.dismiss(animated: true, completion: nil)
         UIApplication.topViewController()?.dismiss(animated: true, completion: nil)
       }
-
-    // public func shareToMail(args : [String: Any?],result: @escaping FlutterResult) {
-//         let text = args[argMessage] as? String
-//
-//         if MFMailComposeViewController.canSendMail() {
-//                 let mailComposerVC = MFMailComposeViewController()
-//                 mailComposerVC.mailComposeDelegate = self
-//                 mailComposerVC.setToRecipients([email])
-//                 mailComposerVC.setSubject(subject)
-//                 mailComposerVC.setMessageBody(bodyText, isHTML: true)
-//                 self.present(mailComposerVC, animated: true, completion: nil)
-//             }
-
-
-//         let picker = MFMailComposeViewController()
-//         picker.mailComposeDelegate = self
-//         if MFMailComposeViewController.canSendMail() {
-//           picker.setMessageBody(text!, isHTML: true)
-//           UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
-//         }
-
-//         let body = text!
-//         let coded = "mailto:?body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-//         if let emailURL:NSURL = NSURL(string: coded!)
-//             {
-//                 if UIApplication.shared.canOpenURL(emailURL as URL){
-//                      UIApplication.shared.open(emailURL as URL)
-//                   }
-//                }
-      // }
-
 
     public func shareToGmail(args : [String: Any?],result: @escaping FlutterResult) {
         let message = args[self.argMessage] as? String
