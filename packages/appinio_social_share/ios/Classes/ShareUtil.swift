@@ -348,7 +348,7 @@ public class ShareUtil : NSObject, MFMailComposeViewControllerDelegate {
         }
       }
 
-      func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+      func mailComposeController(controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
       }
 
