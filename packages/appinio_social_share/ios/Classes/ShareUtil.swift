@@ -343,13 +343,13 @@ public class ShareUtil : NSObject, MFMailComposeViewControllerDelegate {
           let text = args[argMessage] as? String
           let picker = MFMailComposeViewController()
           picker.mailComposeDelegate = self
-          picker.delegate = self
+          //picker.delegate = self
           picker.setMessageBody(text!, isHTML: true)
           UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
         }
       }
 
-      func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    public func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
     //    controller.dismiss(animated: true, completion: nil)
         UIApplication.topViewController()?.dismiss(animated: true, completion: nil)
       }
