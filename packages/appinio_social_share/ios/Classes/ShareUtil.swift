@@ -7,7 +7,7 @@ import MobileCoreServices
 import MessageUI
 
 
-public class ShareUtil : NSObject, MFMailComposeViewControllerDelegate {
+public class ShareUtil {
     
     public let SUCCESS: String = "SUCCESS"
     public let ERROR_APP_NOT_AVAILABLE: String = "ERROR_APP_NOT_AVAILABLE"
@@ -340,17 +340,32 @@ public class ShareUtil : NSObject, MFMailComposeViewControllerDelegate {
 
     public func shareToMail(args : [String: Any?],result: @escaping FlutterResult) {
         let text = args[argMessage] as? String
-        let picker = MFMailComposeViewController()
-        picker.mailComposeDelegate = self
-        if MFMailComposeViewController.canSendMail() {
-          picker.setMessageBody(text!, isHTML: true)
-          UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
-        }
+//         let picker = MFMailComposeViewController()
+//         picker.mailComposeDelegate = self
+//         if MFMailComposeViewController.canSendMail() {
+//           picker.setMessageBody(text!, isHTML: true)
+//           UIApplication.topViewController()?.present(picker, animated: true, completion: nil)
+//         }
+
+        let body = text!
+
+//         let coded = "mailto:?body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+//
+//         if let emailURL:NSURL = NSURL(string: coded!)
+//                {
+//                   if UIApplication.shared.canOpenURL(emailURL as URL){
+//                      UIApplication.shared.open(emailURL as URL)
+//                   }
+//                }
+
+
+               let mailURL = URL(string: "message://")!
+               if UIApplication.shared.canOpenURL(mailURL) {
+                   UIApplication.shared.openURL(mailURL)
+               }
+
       }
 
-      func mailComposeController(controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
-      }
 
     public func shareToGmail(args : [String: Any?],result: @escaping FlutterResult) {
         let message = args[self.argMessage] as? String
