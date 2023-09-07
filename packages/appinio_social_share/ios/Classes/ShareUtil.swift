@@ -7,7 +7,7 @@ import MobileCoreServices
 import MessageUI
 
 
-public class ShareUtil : MFMailComposeViewControllerDelegate {
+public class ShareUtil : NSObject, MFMailComposeViewControllerDelegate {
     
     public let SUCCESS: String = "SUCCESS"
     public let ERROR_APP_NOT_AVAILABLE: String = "ERROR_APP_NOT_AVAILABLE"
