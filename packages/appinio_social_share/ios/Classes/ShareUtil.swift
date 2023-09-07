@@ -349,7 +349,7 @@ public class ShareUtil {
 
         let body = text!
 
-//         let coded = "mailto:?body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let coded = "mailto:?body=\(body)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 //
 //         if let emailURL:NSURL = NSURL(string: coded!)
 //                {
@@ -359,7 +359,7 @@ public class ShareUtil {
 //                }
 
 
-               let mailURL = URL(string: "message://")!
+               let mailURL = URL(string: coded)!
                if UIApplication.shared.canOpenURL(mailURL) {
                    UIApplication.shared.openURL(mailURL)
                }
