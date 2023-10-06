@@ -32,7 +32,7 @@ public class ShareUtil : NSObject, MFMailComposeViewControllerDelegate {
     public func getInstalledApps(result: @escaping FlutterResult){
         let apps = [["instagram","instagram"],["facebook-stories","facebook_stories"],
         ["whatsapp","whatsapp"],["tg","telegram"],["fb-messenger","messenger"],["tiktok","tiktok"],
-        ["instagram-stories","instagram_stories"],["twitter","twitter"],["sms","message"],["com.Slack","slack"],
+        ["instagram-stories","instagram_stories"],["twitter","twitter"],["sms","message"],["slack","slack"],
         ["mailto","mail"], ["googlegmail","gmail"]]
         var output:[String: Bool] = [:]
         for app in apps {
@@ -323,7 +323,7 @@ public class ShareUtil : NSObject, MFMailComposeViewControllerDelegate {
     func shareToSlack(args : [String: Any?],result: @escaping FlutterResult)  {
         let message = args[self.argMessage] as? String
 
-        let slackURL = "com.Slack://app?tab=messages$text="+message!
+        let slackURL = "slack://app?tab=messages$text="+message!
 
         print("slackURL " + slackURL)
 
