@@ -323,7 +323,7 @@ public class ShareUtil : NSObject, MFMailComposeViewControllerDelegate {
     func shareToSlack(args : [String: Any?],result: @escaping FlutterResult)  {
         let message = args[self.argMessage] as? String
 
-        let slackURL = "slack://app?tab=messages$text="+message!
+        let slackURL = "slack://text=\(message)"
 
         print("slackURL " + slackURL)
 
