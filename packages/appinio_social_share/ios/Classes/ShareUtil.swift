@@ -325,6 +325,8 @@ public class ShareUtil : NSObject, MFMailComposeViewControllerDelegate {
 
         let slackURL = "slack://app?tab=messages$text="+message!
 
+        print("slackURL" + slackURL)
+
         var characterSet = CharacterSet.urlQueryAllowed
         characterSet.insert(charactersIn: "?&")
         let slackAppURL  = NSURL(string: slackURL.addingPercentEncoding(withAllowedCharacters: characterSet)!)
