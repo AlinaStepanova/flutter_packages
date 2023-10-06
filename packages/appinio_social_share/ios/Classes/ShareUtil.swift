@@ -32,7 +32,7 @@ public class ShareUtil : NSObject, MFMailComposeViewControllerDelegate {
     public func getInstalledApps(result: @escaping FlutterResult){
         let apps = [["instagram","instagram"],["facebook-stories","facebook_stories"],
         ["whatsapp","whatsapp"],["tg","telegram"],["fb-messenger","messenger"],["tiktok","tiktok"],
-        ["instagram-stories","instagram_stories"],["twitter","twitter"],["sms","message"],["slack","slack"],
+        ["instagram-stories","instagram_stories"],["twitter","twitter"],["sms","message"],["com.Slack","slack"],
         ["mailto","mail"], ["googlegmail","gmail"]]
         var output:[String: Bool] = [:]
         for app in apps {
